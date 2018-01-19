@@ -34,6 +34,9 @@ namespace ConsoleApplication1
                 case 36:
                     parsed = guid.ToString("N");
                     break;
+                case 38:
+                    parsed = guidStr.Trim('{', '}');
+                    break;
             }
             Clipboard.SetText(parsed);
             Console.WriteLine($"{parsed}   <--- Value has been copied to clipboard");
