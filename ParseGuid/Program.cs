@@ -2,19 +2,28 @@
 using System.Linq;
 using System.Windows.Forms;
 
-namespace ConsoleApplication1
+namespace ParseGuid
 {
     class Program
     {
         [STAThread]
         static void Main(string[] args)
         {
-            if (!args.Any())
+            var parser = new Program();
+            if (!args.Any() || string.IsNullOrWhiteSpace(args[0]))
             {
-                Console.WriteLine("FAILED TO SUPPLY A GUID PARAMETER");
+                Console.WriteLine("FAILED TO SUPPLY A GUID PARAMETER\n");
+                parser.NewGuidToClipboard();
                 return;
             }
-            new Program().ParseGuid(args[0]);
+            parser.ParseGuid(args[0]);
+        }
+
+        private void NewGuidToClipboard()
+        {
+            var newGuid = Guid.NewGuid().ToString();
+            Clipboard.SetText(newGuid);
+            Console.WriteLine($"{newGuid}   <--- A NEW guid has been copied to clipboard");
         }
 
         public void ParseGuid(string guidStr)
